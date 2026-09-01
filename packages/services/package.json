@@ -1,0 +1,21 @@
+{
+  "name": "@build-me/services",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./api-clients/index.ts",
+  "types": "./api-clients/index.ts",
+  "exports": {
+    ".": "./api-clients/index.ts",
+    "./integrations": "./integrations/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@build-me/types": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
