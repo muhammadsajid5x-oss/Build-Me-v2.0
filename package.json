@@ -11,22 +11,23 @@
     "build-storybook": "storybook build"
   },
   "devDependencies": {
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.5",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "turbo": "^2.10.12",
-    "storybook": "^10.5.10",
-    "@storybook/react-vite": "^10.5.10",
     "@chromatic-com/storybook": "5.3.0",
-    "@storybook/addon-vitest": "^10.5.10",
     "@storybook/addon-a11y": "^10.5.10",
     "@storybook/addon-docs": "^10.5.10",
     "@storybook/addon-mcp": "0.7.0",
-    "prop-types": "latest",
-    "vitest": "latest",
-    "playwright": "latest",
+    "@storybook/addon-vitest": "^10.5.10",
+    "@storybook/react-vite": "^10.5.10",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
     "@vitest/browser-playwright": "latest",
-    "@vitest/coverage-v8": "latest"
+    "@vitest/coverage-v8": "latest",
+    "playwright": "latest",
+    "prop-types": "latest",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "storybook": "^10.5.10",
+    "turbo": "^2.10.12",
+    "vitest": "latest"
   }
 }

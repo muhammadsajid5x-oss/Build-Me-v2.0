@@ -13,5 +13,5 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["index.ts", "drizzle/**/*.ts", "schema/**/*.ts"]
+  "include": ["index.ts", "drizzle/**/*.ts", "schema/**/*.ts", "seeds/**/*.ts"]
 }

@@ -13,7 +13,8 @@
     "typecheck": "tsc --noEmit",
     "db:generate": "drizzle-kit generate --config=drizzle/config.ts",
     "db:check": "drizzle-kit check --config=drizzle/config.ts",
-    "db:migrate": "drizzle-kit migrate --config=drizzle/config.ts"
+    "db:migrate": "drizzle-kit migrate --config=drizzle/config.ts",
+    "db:seed": "tsx seeds/seed.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.44.0",
@@ -23,6 +24,7 @@
     "@types/node": "^26.4.0",
     "dotenv": "^16.6.1",
     "drizzle-kit": "^0.31.0",
+    "tsx": "^4.20.3",
     "typescript": "^5.9.2"
   }
 }
