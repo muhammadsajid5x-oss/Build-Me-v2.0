@@ -10,12 +10,16 @@
     "./integrations": "./integrations/index.ts"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
-    "@build-me/types": "workspace:*"
+    "@build-me/types": "workspace:*",
+    "@supabase/supabase-js": "^2.114.0"
   },
   "devDependencies": {
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
   }
 }
