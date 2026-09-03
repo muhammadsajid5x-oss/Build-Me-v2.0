@@ -1,23 +1,3 @@
 {
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
-  "js/ts.validate.enabled": true,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "files.eol": "\n",
-  "files.insertFinalNewline": true,
-  "editor.tabSize": 2,
-  "editor.insertSpaces": true,
-  "files.exclude": {
-    "node_modules": true,
-    "dist": true,
-    "coverage": true
-  }
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
