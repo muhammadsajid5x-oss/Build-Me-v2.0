@@ -13,5 +13,5 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["api-clients", "integrations"]
+  "include": ["api-clients", "integrations", "env.d.ts"]
 }

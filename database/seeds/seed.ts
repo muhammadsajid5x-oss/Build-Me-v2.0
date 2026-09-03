@@ -9,7 +9,9 @@ async function seed() {
   console.log("Database seed completed.");
 }
 
-seed().catch((error) => {
+try {
+  await seed();
+} catch (error) {
   console.error("Database seed failed:", error);
   process.exit(1);
-});
+}
