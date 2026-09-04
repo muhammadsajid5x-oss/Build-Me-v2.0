@@ -10,7 +10,9 @@
     "lint": "turbo lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test:unit": "jest --config jest.config.ts"
+    "test:unit": "jest --config jest.config.ts",
+    "cypress:run": "cypress run",
+    "cypress:open": "cypress open"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "5.3.0",
@@ -41,13 +43,5 @@
     "turbo": "^2.10.12",
     "typescript": "^5.9.2",
     "vitest": "latest"
-    "lint": "turbo lint"
-  },
-  "devDependencies": {
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.5",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "turbo": "^2.10.12"
   }
 }

@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe("Build Me Web Application", () => {
   it("loads the homepage successfully", () => {
     cy.visit("/");
