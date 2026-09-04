@@ -1,0 +1,12 @@
+@import "tailwindcss";
+:root {
+  font-family: Inter, "Plus Jakarta Sans", "Geist Sans", system-ui, sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #111827;
+}

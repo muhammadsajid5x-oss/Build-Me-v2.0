@@ -1,0 +1,19 @@
+project_id = "build-me"
+
+[db]
+major_version = 17
+
+[api]
+enabled = true
+
+[studio]
+enabled = true
+
+[auth]
+enabled = true
+
+[storage]
+enabled = true
+
+[functions]
+enabled = true
