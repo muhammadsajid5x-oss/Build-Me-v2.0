@@ -11,4 +11,8 @@
   "devDependencies": {
     "typescript": "^5.9.2"
   }
+﻿{
+  "name": "@build-me/config",
+  "private": true,
+  "version": "0.0.0"
 }

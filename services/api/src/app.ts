@@ -27,6 +27,12 @@ app.use(
 );
 
 app.use(apiRateLimiter);
+const app = express();
+
+// Disable the X-Powered-By header to prevent leaking framework information
+app.disable("x-powered-by");
+
+app.use(express.json());
 
 app.get("/health", (_req, res) => {
   res.json({

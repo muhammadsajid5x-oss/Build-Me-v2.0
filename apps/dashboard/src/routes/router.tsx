@@ -21,6 +21,20 @@ export const router = createBrowserRouter([
           { index: true, element: <DashboardPage /> },
           { path: "*", element: <NotFoundPage /> },
         ],
+import NotFoundPage from "../pages/NotFoundPage";
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
+    errorElement: <NotFoundPage />,
+    children: [
+      {
+        index: true,
+        element: <DashboardPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },
