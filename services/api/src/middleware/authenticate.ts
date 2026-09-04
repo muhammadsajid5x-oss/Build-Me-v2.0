@@ -1,12 +1,14 @@
-﻿import type { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import {
   authenticateAccessToken,
   type AuthenticatedUser,
 } from "../auth/index.js";
 import { createApiError } from "../validators/index.js";
-declare module "express-serve-static-core" {
-  interface Request {
-    user?: AuthenticatedUser;
+declare global {
+  namespace Express {
+    interface Request {
+      user?: AuthenticatedUser;
+    }
   }
 }
 function getBearerToken(request: Request): string | null {
