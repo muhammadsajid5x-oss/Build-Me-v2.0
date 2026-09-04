@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+﻿import { describe, expect, it, vi } from "vitest";
 import type { NextFunction, Request, Response } from "express";
 import { securityHeaders } from "../../src/middleware/security.js";
 import { authorize } from "../../src/middleware/authorize.js";
@@ -61,7 +61,7 @@ describe("Backend Security Foundation", () => {
     });
 
     it("allows an authenticated user with the authenticated permission", () => {
-      const request = createRequest() as any;
+      const request = createRequest();
 
       request.user = {
         id: "user-123",
@@ -78,7 +78,7 @@ describe("Backend Security Foundation", () => {
     });
 
     it("returns 403 when an authenticated user lacks a permission", () => {
-      const request = createRequest() as any;
+      const request = createRequest();
 
       request.user = {
         id: "user-123",
@@ -88,7 +88,7 @@ describe("Backend Security Foundation", () => {
       const response = createResponse();
       const next = vi.fn() as unknown as NextFunction;
 
-      authorize("projects.manage" as any)(request, response, next);
+      authorize("projects.manage" as Parameters<typeof authorize>[0])(request, response, next);
 
       expect(response.status).toHaveBeenCalledWith(403);
       expect(response.json).toHaveBeenCalledWith({

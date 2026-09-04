@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "@build-me/ui",
   "version": "0.0.0",
   "private": true,
@@ -43,8 +43,4 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }
-﻿{
-  "name": "@build-me/ui",
-  "private": true,
-  "version": "0.0.0"
 }
