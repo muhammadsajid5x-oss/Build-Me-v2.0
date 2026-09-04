@@ -1,9 +1,5 @@
-packages:
-  - "apps/*"
-  - "services/*"
-  - "packages/*"
-  - "database"
 ﻿packages:
   - "apps/*"
   - "services/*"
   - "packages/*"
+  - "database"

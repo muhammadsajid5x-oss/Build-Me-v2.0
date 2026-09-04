@@ -11,26 +11,19 @@ declare global {
     }
   }
 }
-
 function getBearerToken(request: Request): string | null {
   const authorization = request.header("authorization");
-
   if (!authorization) {
     return null;
   }
-
   const parts = authorization.trim().split(/\s+/);
-
   if (parts.length !== 2) {
     return null;
   }
-
   const [scheme, token] = parts;
-
   if (scheme?.toLowerCase() !== "bearer" || !token) {
     return null;
   }
-
   return token;
 }
 export async function authenticate(
