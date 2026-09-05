@@ -6,6 +6,7 @@ import {
   authorize,
 } from "../middleware/index.js";
 import { PERMISSIONS } from "../permissions/index.js";
+import type { AuthenticatedRequest } from "../auth/auth.types.js";
 
 const router = Router();
 
@@ -14,7 +15,7 @@ router.get(
   authRateLimiter,
   authenticate,
   authorize(PERMISSIONS.AUTHENTICATED),
-  (request, response) => {
+  (request: AuthenticatedRequest, response) => {
     response.json({
       data: {
         user: request.user,

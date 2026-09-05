@@ -1,37 +1,30 @@
-import type { NextFunction, Request, Response } from "express";
-import {
-  createApiError,
-} from "../validators/index.js";
-import {
-  PERMISSIONS,
-  type Permission,
-} from "../permissions/index.js";
-export function authorize(
-  permission: Permission,
-) {
+import type { AuthenticatedRequest } from "../auth/auth.types.js";
+import type { NextFunction, Response } from "express";
+import { createApiError } from "../validators/index.js";
+import { PERMISSIONS, type Permission } from "../permissions/index.js";
+export function authorize(permission: Permission) {
   return (
-    request: Request,
+    request: AuthenticatedRequest,
     response: Response,
     next: NextFunction,
   ): void => {
     if (!request.user) {
-      response.status(401).json(
-        createApiError(
-          "UNAUTHORIZED",
-          "Authentication is required.",
-        ),
-      );
+      response
+        .status(401)
+        .json(createApiError("UNAUTHORIZED", "Authentication is required."));
       return;
     }
     if (permission === PERMISSIONS.AUTHENTICATED) {
       next();
       return;
     }
-    response.status(403).json(
-      createApiError(
-        "FORBIDDEN",
-        "You do not have permission to access this resource.",
-      ),
-    );
+    response
+      .status(403)
+      .json(
+        createApiError(
+          "FORBIDDEN",
+          "You do not have permission to access this resource.",
+        ),
+      );
   };
 }

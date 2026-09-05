@@ -1,16 +1,8 @@
-import type { NextFunction, Request, Response } from "express";
-import {
-  authenticateAccessToken,
-  type AuthenticatedUser,
-} from "../auth/index.js";
+import type { Request, Response, NextFunction } from "express";
+import type { AuthenticatedRequest } from "../auth/auth.types.js";
+import { authenticateAccessToken } from "../auth/index.js";
 import { createApiError } from "../validators/index.js";
-declare global {
-  namespace Express {
-    interface Request {
-      user?: AuthenticatedUser;
-    }
-  }
-}
+
 function getBearerToken(request: Request): string | null {
   const authorization = request.header("authorization");
   if (!authorization) {
@@ -26,8 +18,9 @@ function getBearerToken(request: Request): string | null {
   }
   return token;
 }
+
 export async function authenticate(
-  request: Request,
+  request: AuthenticatedRequest,
   response: Response,
   next: NextFunction,
 ): Promise<void> {
