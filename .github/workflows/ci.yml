@@ -47,15 +47,24 @@ jobs:
         run: pnpm build-storybook
 
       - name: Start API
+        env:
+          SUPABASE_URL: https://example.supabase.co
+          SUPABASE_KEY: ci-test-key
         run: |
           pnpm --dir services/api start > api.log 2>&1 &
+
           for i in {1..30}; do
             if curl -fsS http://localhost:3000/health > /dev/null; then
               echo "API is ready"
-              break
+              exit 0
             fi
+
             sleep 2
           done
+
+          echo "API failed to start"
+          cat api.log
+          exit 1
 
       - name: Start Web
         run: |
