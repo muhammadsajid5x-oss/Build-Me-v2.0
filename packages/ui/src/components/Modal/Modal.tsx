@@ -5,9 +5,12 @@ import {
   type ReactNode,
   type MouseEvent,
 } from "react";
+// @ts-expect-error CSS modules/files declaration
 import "./Modal.css";
+
 export type ModalSize = "sm" | "md" | "lg" | "xl";
 export type ModalState = "default" | "loading" | "error" | "success";
+
 export interface ModalProps {
   open: boolean;
   onClose: () => void;
@@ -20,27 +23,33 @@ export interface ModalProps {
   className?: string;
   "aria-label"?: string;
 }
+
 export interface ModalSectionProps {
   children?: ReactNode;
   className?: string;
 }
+
 export interface ModalActionsProps extends ModalSectionProps {
   align?: "start" | "center" | "end" | "between";
 }
-export function Modal({
-  open,
-  onClose,
-  children,
-  size = "md",
-  state = "default",
-  closeOnBackdrop = true,
-  closeOnEscape = true,
-  showCloseButton = true,
-  className = "",
-  "aria-label": ariaLabel,
-}: ModalProps) {
+
+export function Modal(props: Readonly<ModalProps>) {
+  const {
+    open,
+    onClose,
+    children,
+    size = "md",
+    state = "default",
+    closeOnBackdrop = true,
+    closeOnEscape = true,
+    showCloseButton = true,
+    className = "",
+    "aria-label": ariaLabel,
+  } = props;
+
   const titleId = useId();
-  const modalRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDialogElement>(null);
+
   useEffect(() => {
     if (!open) {
       return;
@@ -59,9 +68,11 @@ export function Modal({
       document.body.style.overflow = originalOverflow;
     };
   }, [open, closeOnEscape, onClose]);
+
   if (!open) {
     return null;
   }
+
   const classes = [
     "ui-modal",
     `ui-modal--${size}`,
@@ -70,22 +81,23 @@ export function Modal({
   ]
     .filter(Boolean)
     .join(" ");
+
   const handleBackdropClick = (event: MouseEvent<HTMLDivElement>) => {
     if (closeOnBackdrop && event.target === event.currentTarget) {
       onClose();
     }
   };
+
   return (
     <div
       className="ui-modal__backdrop"
       onMouseDown={handleBackdropClick}
-      role="presentation"
+      aria-hidden="true"
     >
-      <div
+      <dialog
         ref={modalRef}
         className={classes}
-        role="dialog"
-        aria-modal="true"
+        open={open}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabel ? undefined : titleId}
         tabIndex={-1}
@@ -97,51 +109,42 @@ export function Modal({
             onClick={onClose}
             aria-label="Close modal"
           >
-            ×
+            Ã—
           </button>
         )}
         <div id={titleId} className="ui-modal__content">
           {children}
         </div>
-      </div>
+      </dialog>
     </div>
   );
 }
-export function ModalHeader({
-  children,
-  className = "",
-}: ModalSectionProps) {
+
+export function ModalHeader(props: Readonly<ModalSectionProps>) {
+  const { children, className = "" } = props;
   return (
     <header className={`ui-modal__header ${className}`.trim()}>
       {children}
     </header>
   );
 }
-export function ModalBody({
-  children,
-  className = "",
-}: ModalSectionProps) {
-  return (
-    <div className={`ui-modal__body ${className}`.trim()}>
-      {children}
-    </div>
-  );
+
+export function ModalBody(props: Readonly<ModalSectionProps>) {
+  const { children, className = "" } = props;
+  return <div className={`ui-modal__body ${className}`.trim()}>{children}</div>;
 }
-export function ModalFooter({
-  children,
-  className = "",
-}: ModalSectionProps) {
+
+export function ModalFooter(props: Readonly<ModalSectionProps>) {
+  const { children, className = "" } = props;
   return (
     <footer className={`ui-modal__footer ${className}`.trim()}>
       {children}
     </footer>
   );
 }
-export function ModalActions({
-  children,
-  align = "end",
-  className = "",
-}: ModalActionsProps) {
+
+export function ModalActions(props: Readonly<ModalActionsProps>) {
+  const { children, align = "end", className = "" } = props;
   return (
     <div
       className={`ui-modal__actions ui-modal__actions--${align} ${className}`.trim()}
@@ -150,17 +153,13 @@ export function ModalActions({
     </div>
   );
 }
-export function ModalStep({
-  children,
-  active = true,
-  className = "",
-}: ModalSectionProps & { active?: boolean }) {
+
+export function ModalStep(
+  props: Readonly<ModalSectionProps & { active?: boolean }>,
+) {
+  const { children, active = true, className = "" } = props;
   if (!active) {
     return null;
   }
-  return (
-    <div className={`ui-modal__step ${className}`.trim()}>
-      {children}
-    </div>
-  );
+  return <div className={`ui-modal__step ${className}`.trim()}>{children}</div>;
 }

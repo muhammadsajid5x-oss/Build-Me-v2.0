@@ -7,3 +7,4 @@ export {
 } from "./formatting";
 export { isValidDate, formatDate, formatDateTime, toISOString } from "./dates";
 export * from "./security/index.js";
+export * from "./logging/index.js";
