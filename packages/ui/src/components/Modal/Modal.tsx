@@ -5,7 +5,7 @@ import {
   type ReactNode,
   type MouseEvent,
 } from "react";
-// @ts-expect-error CSS modules/files declaration
+
 import "./Modal.css";
 
 export type ModalSize = "sm" | "md" | "lg" | "xl";
