@@ -12,8 +12,12 @@ const config: Config = {
   ],
 
   testMatch: ["**/*.jest.test.ts", "**/*.jest.test.tsx"],
-
+  setupFilesAfterEnv: ["<rootDir>/tests/jest.setup.ts"],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
+  moduleNameMapper: {
+    "^(\\.{1,2}/.*)\\.js$": "$1",
+    "^.+\\.(css|scss|sass)$": "<rootDir>/tests/mocks/styleMock.js",
+  },
 
   transform: {
     "^.+\\.tsx?$": [
@@ -28,3 +32,5 @@ const config: Config = {
 };
 
 export default config;
+
+
