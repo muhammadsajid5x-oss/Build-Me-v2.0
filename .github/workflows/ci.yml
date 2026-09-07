@@ -24,6 +24,8 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -69,13 +71,19 @@ jobs:
       - name: Start Web
         run: |
           pnpm --dir apps/web preview --host 0.0.0.0 --port 5173 > web.log 2>&1 &
+
           for i in {1..30}; do
             if curl -fsS http://localhost:5173/ > /dev/null; then
               echo "Web is ready"
-              break
+              exit 0
             fi
+
             sleep 2
           done
+
+          echo "Web failed to start"
+          cat web.log
+          exit 1
 
       - name: Unit Tests
         run: pnpm test:unit
