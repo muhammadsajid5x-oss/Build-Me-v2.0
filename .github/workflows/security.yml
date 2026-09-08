@@ -1,4 +1,5 @@
-name: Security
+name: Security Automation
+
 on:
   push:
     branches:
@@ -8,30 +9,64 @@ on:
     branches:
       - development
       - main
-  workflow_dispatch:
+
 permissions:
   contents: read
+
 jobs:
   security:
-    name: Security Checks
+    name: Security Validation
     runs-on: ubuntu-latest
+
+    env:
+      SUPABASE_URL: https://example.supabase.co
+      SUPABASE_KEY: ci-test-key
+      VITE_SUPABASE_URL: https://example.supabase.co
+      VITE_SUPABASE_KEY: ci-test-key
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
+        uses: actions/checkout@v5
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9.15.4
+          version: 10.14.0
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Audit dependencies
-        run: pnpm audit --audit-level=high
-      - name: Run tests
-        run: pnpm test
-      - name: Security validation
-        run: echo "Security checks completed."
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Start API
+        run: |
+          pnpm --dir services/api start > api.log 2>&1 &
+
+          for i in {1..30}; do
+            if curl -fsS http://localhost:3000/health > /dev/null; then
+              echo "API is ready"
+              exit 0
+            fi
+
+            sleep 2
+          done
+
+          echo "API failed to start"
+          cat api.log
+          exit 1
+
+      - name: SuperTest Security Tests
+        run: pnpm exec jest --config jest.config.ts tests/security/api/api-security.jest.test.ts
+
+      - name: OWASP ZAP Scan
+        uses: zaproxy/action-baseline@v0.15.0
+        with:
+          target: "http://host.docker.internal:3000/health"
+          fail_action: true
