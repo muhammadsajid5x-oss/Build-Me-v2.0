@@ -1,5 +1,7 @@
 import express from "express";
+
 import authRoutes from "./routes/auth.js";
+
 import {
   apiRateLimiter,
   errorHandler,
@@ -9,21 +11,27 @@ import {
 const app = express();
 
 app.disable("x-powered-by");
+
 app.use(securityHeaders);
+
 app.use(
   express.json({
     limit: "1mb",
   }),
 );
+
 app.use(
   express.urlencoded({
     extended: false,
     limit: "1mb",
   }),
 );
+
 app.use(apiRateLimiter);
 
 app.get("/health", (_req, res) => {
+  res.setHeader("Cache-Control", "no-store");
+
   res.json({
     status: "ok",
     service: "build-me-api",
