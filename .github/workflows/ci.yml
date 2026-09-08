@@ -50,6 +50,9 @@ jobs:
       - name: Install Cypress binary
         run: pnpm exec cypress install
 
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
       - name: Lint
         run: pnpm lint
 
