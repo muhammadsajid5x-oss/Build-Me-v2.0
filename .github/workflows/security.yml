@@ -1,5 +1,4 @@
 name: Security Automation
-
 on:
   push:
     branches:
