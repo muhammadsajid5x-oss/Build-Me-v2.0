@@ -45,6 +45,9 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
 
+      - name: Build API
+        run: pnpm --filter @build-me/api build
+
       - name: Start API
         run: |
           pnpm --dir services/api start > api.log 2>&1 &
