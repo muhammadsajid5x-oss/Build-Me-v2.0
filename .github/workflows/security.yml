@@ -73,3 +73,4 @@ jobs:
         with:
           target: "http://localhost:3000/health"
           fail_action: true
+          allow_issue_writing: false
