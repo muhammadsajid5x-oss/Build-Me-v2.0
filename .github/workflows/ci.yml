@@ -44,6 +44,7 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
       - name: Install Cypress binary
         run: pnpm exec cypress install
 
@@ -91,6 +92,23 @@ jobs:
 
           echo "Web failed to start"
           cat web.log
+          exit 1
+
+      - name: Start Dashboard
+        run: |
+          pnpm --dir apps/dashboard preview --host 0.0.0.0 --port 5174 > dashboard.log 2>&1 &
+
+          for i in {1..30}; do
+            if curl -fsS http://localhost:5174/ > /dev/null; then
+              echo "Dashboard is ready"
+              exit 0
+            fi
+
+            sleep 2
+          done
+
+          echo "Dashboard failed to start"
+          cat dashboard.log
           exit 1
 
       - name: Unit Tests
