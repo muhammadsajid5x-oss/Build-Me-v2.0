@@ -21,6 +21,8 @@ jobs:
     env:
       SUPABASE_URL: https://example.supabase.co
       SUPABASE_KEY: ci-test-key
+      VITE_SUPABASE_URL: https://example.supabase.co
+      VITE_SUPABASE_KEY: ci-test-key
 
     steps:
       - name: Checkout
