@@ -1,5 +1,7 @@
+/* global __ENV */
 import http from "k6/http";
 import { check, sleep } from "k6";
+
 export const options = {
   vus: 1,
   duration: "10s",
@@ -8,7 +10,8 @@ export const options = {
     http_req_failed: ["rate<0.01"],
   },
 };
-export default function () {
+
+export default function healthCheckTest() {
   const response = http.get(
     __ENV.API_BASE_URL || "http://localhost:3000/health",
   );
