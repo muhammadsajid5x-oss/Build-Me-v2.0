@@ -12,6 +12,12 @@ const app = express();
 
 app.disable("x-powered-by");
 
+// Prevent API responses from being stored or cached.
+app.use((req, res, next) => {
+  res.setHeader("Cache-Control", "no-store");
+  next();
+});
+
 app.use(securityHeaders);
 
 app.use(
@@ -29,9 +35,14 @@ app.use(
 
 app.use(apiRateLimiter);
 
-app.get("/health", (_req, res) => {
-  res.setHeader("Cache-Control", "no-store");
+app.get("/", (_req, res) => {
+  res.json({
+    name: "Build Me API",
+    status: "running",
+  });
+});
 
+app.get("/health", (_req, res) => {
   res.json({
     status: "ok",
     service: "build-me-api",
