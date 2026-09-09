@@ -43,6 +43,6 @@ jobs:
       - name: Deploy to Staging
         run: pnpm exec vercel deploy --yes
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_PROJECT_ID: ${{ secrets.vcp_5yFvX2NJSYhG3G6s8jkYZi7s2lHlqScrwJeOotv7mBFMPm488n0VVV }} }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
