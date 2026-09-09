@@ -1,5 +1,9 @@
 {
-  "buildCommand": "pnpm --filter @build-me/web build",
-  "outputDirectory": "apps/web/dist",
-  "installCommand": "pnpm install --frozen-lockfile"
+  "buildCommand": "pnpm --filter @build-me/api build",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "services/api/dist/**"
+    }
+  }
 }
