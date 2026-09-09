@@ -1,5 +1,5 @@
 {
   "buildCommand": "pnpm --filter @build-me/web build",
   "outputDirectory": "apps/web/dist",
-  "installCommand": "pnpm install --frozen-lockfile"
+  "installCommand": "cd ../.. && pnpm install --frozen-lockfile"
 }
