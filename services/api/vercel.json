@@ -1,3 +1,8 @@
 {
-  "buildCommand": "pnpm build"
+  "buildCommand": "pnpm --filter @build-me/api build",
+  "functions": {
+    "services/api/api/index.js": {
+      "includeFiles": "services/api/dist/**"
+    }
+  }
 }
