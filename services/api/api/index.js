@@ -1,2 +1,3 @@
-import app from "../dist/app.js";
+import app from "../src/app.ts";
+
 export default app;

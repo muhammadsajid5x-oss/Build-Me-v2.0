@@ -1,9 +1,3 @@
 {
-  "buildCommand": "pnpm build",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/api/index"
-    }
-  ]
+  "buildCommand": "pnpm build"
 }
