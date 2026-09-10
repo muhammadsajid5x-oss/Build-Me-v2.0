@@ -65,7 +65,7 @@ jobs:
           exit 1
 
       - name: SuperTest Security Tests
-        run: pnpm exec jest --config jest.config.ts tests/security/api/api-security.jest.test.ts
+        run: pnpm exec jest --config jest.config.cjs tests/security/api/api-security.jest.test.ts
 
       - name: ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.15.0

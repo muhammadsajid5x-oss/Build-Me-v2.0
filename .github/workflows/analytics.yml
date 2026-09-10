@@ -72,6 +72,6 @@ jobs:
       - name: Run analytics validation tests
         run: |
           pnpm exec jest \
-            --config jest.config.ts \
+            --config jest.config.cjs \
             tests/analytics \
             --passWithNoTests
