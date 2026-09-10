@@ -1,29 +1,51 @@
-name: Release
+﻿name: Release
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (example: 0.1.0)"
+        required: true
+        type: string
 permissions:
   contents: write
 jobs:
   release:
-    name: Release Validation
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9.15.4
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Run tests
         run: pnpm test
       - name: Build
         run: pnpm build
-      - name: Release validation
-        run: echo "Release validation completed."
+      - name: Validate changelog
+        run: |
+          test -f CHANGELOG.md
+          grep -q "\[${{ inputs.version }}\]" CHANGELOG.md
+      - name: Create Git tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "v${{ inputs.version }}"
+          git push origin "v${{ inputs.version }}"
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v${{ inputs.version }}" \
+            --title "Build Me v${{ inputs.version }}" \
+            --notes-file CHANGELOG.md
