@@ -1,7 +1,7 @@
 {
   "name": "build-me",
   "private": true,
-  "packageManager": "pnpm@10.14.0",
+  "packageManager": "pnpm@9.15.4",
   "type": "module",
   "scripts": {
     "dev": "turbo dev",
