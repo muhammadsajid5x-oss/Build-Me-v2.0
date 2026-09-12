@@ -1,0 +1,48 @@
+name: CD - Development
+
+on:
+  push:
+    branches:
+      - development
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-development:
+    name: Deploy Development
+    runs-on: ubuntu-latest
+
+    environment:
+      name: development
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Deploy to Development
+        run: pnpm exec vercel deploy --yes
+        env:
+          VERCEL_TOKEN: "${{ secrets.VERCEL_TOKEN }}"
+          VERCEL_ORG_ID: "${{ secrets.VERCEL_ORG_ID }}"
+          VERCEL_PROJECT_ID: "${{ secrets.VERCEL_PROJECT_ID }}"
