@@ -31,7 +31,7 @@ export default function LoginPage() {
     <main>
       <h1>Sign in</h1>
 
-      <p>Sign in to access the Build Me dashboard.</p>
+      <p>Please Sign in to access the Build Me dashboard.</p>
 
       {error && <p role="alert">{error}</p>}
 
