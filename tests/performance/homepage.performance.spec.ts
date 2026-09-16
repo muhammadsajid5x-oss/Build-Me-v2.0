@@ -10,8 +10,6 @@ test.describe("Build Me Performance", () => {
 
     const loadTime = Date.now() - start;
 
-    console.log(`Homepage load time: ${loadTime}ms`);
-
     expect(loadTime).toBeLessThan(5000);
   });
 });

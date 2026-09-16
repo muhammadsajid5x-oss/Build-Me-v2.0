@@ -23,8 +23,6 @@ try {
 
     const duration = performance.now() - start;
     durations.push(duration);
-
-    console.log(`Database query ${i + 1}: ${duration.toFixed(2)}ms`);
   }
 
   const sorted = [...durations].sort((a, b) => a - b);
@@ -32,10 +30,13 @@ try {
     durations.reduce((total, value) => total + value, 0) / durations.length;
   const p95 = sorted[Math.ceil(sorted.length * 0.95) - 1];
 
-  console.log("\nDatabase Performance Results");
-  console.log(`Iterations: ${iterations}`);
-  console.log(`Average: ${average.toFixed(2)}ms`);
-  console.log(`P95: ${p95.toFixed(2)}ms`);
+  if (process.env.DEBUG_PERFORMANCE === "1") {
+    console.info("Database Performance Results", {
+      iterations,
+      average: `${average.toFixed(2)}ms`,
+      p95: `${p95.toFixed(2)}ms`,
+    });
+  }
 } finally {
   await connection.end();
 }

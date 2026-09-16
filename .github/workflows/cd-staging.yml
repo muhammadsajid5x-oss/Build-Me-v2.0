@@ -5,14 +5,16 @@ on:
     branches:
       - main
 
-  workflow_dispatch:
-
 permissions:
   contents: read
 
+concurrency:
+  group: staging-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy-staging:
-    name: Deploy Staging
+    name: Deploy to Staging
     runs-on: ubuntu-latest
 
     environment:
@@ -40,9 +42,16 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Deploy to Staging
-        run: pnpm exec vercel deploy --yes
+      - name: Deploy API to Staging
+        run: pnpm exec vercel deploy --yes --token "$VERCEL_TOKEN"
         env:
-          VERCEL_TOKEN: "${{ secrets.VERCEL_TOKEN }}"
-          VERCEL_ORG_ID: "${{ secrets.VERCEL_ORG_ID }}"
-          VERCEL_PROJECT_ID: "${{ secrets.VERCEL_PROJECT_ID }}"
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_API_PROJECT_ID }}
+
+      - name: Deploy Dashboard to Staging
+        run: pnpm exec vercel deploy --yes --token "$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_DASHBOARD_PROJECT_ID }}

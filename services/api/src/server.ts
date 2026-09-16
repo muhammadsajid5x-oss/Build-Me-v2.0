@@ -8,6 +8,9 @@ dotenv.config({
 });
 const { default: app } = await import("./app.js");
 const port = Number(process.env.PORT) || 3000;
+
 app.listen(port, () => {
-  console.log(`Build Me API running on port ${port}`);
+  if (process.env.NODE_ENV !== "production") {
+    console.info(`Build Me API running on port ${port}`);
+  }
 });

@@ -1,12 +1,12 @@
 import { seedProjects, seedUsers } from "./data";
 
 async function seed() {
-  console.log("Starting database seed...");
-
-  console.log("Users:", seedUsers);
-  console.log("Projects:", seedProjects);
-
-  console.log("Database seed completed.");
+  if (process.env.DEBUG_SEED === "1") {
+    console.info("Database seed starting", {
+      userCount: seedUsers.length,
+      projectCount: seedProjects.length,
+    });
+  }
 }
 
 try {
