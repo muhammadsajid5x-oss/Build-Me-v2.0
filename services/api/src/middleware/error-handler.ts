@@ -5,9 +5,10 @@ export function errorHandler(
   error: unknown,
   _request: Request,
   response: Response,
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  _next: NextFunction,
+  next: NextFunction,
 ): void {
+  void next;
+
   if (response.headersSent) {
     return;
   }

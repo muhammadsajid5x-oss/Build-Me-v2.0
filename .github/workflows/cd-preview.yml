@@ -1,28 +1,28 @@
-name: CD - Production
+name: CD - Preview
 
-on:
-  workflow_dispatch:
+"on":
+  push:
+    branches:
+      - "feature/**"
 
 permissions:
   contents: read
 
 concurrency:
-  group: production
-  cancel-in-progress: false
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  deploy-production:
-    name: Deploy to Production
+  deploy-preview:
+    name: Deploy to Preview
     runs-on: ubuntu-latest
 
     environment:
-      name: production
+      name: preview
 
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-        with:
-          ref: main
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -42,17 +42,17 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Deploy API to Production
+      - name: Deploy API to Preview
         working-directory: services/api
-        run: pnpm exec vercel deploy --yes --prod --token "$VERCEL_TOKEN"
+        run: pnpm exec vercel deploy --yes --token "$VERCEL_TOKEN"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_API_PROJECT_ID }}
 
-      - name: Deploy Dashboard to Production
+      - name: Deploy Dashboard to Preview
         working-directory: apps/dashboard
-        run: pnpm exec vercel deploy --yes --prod --token "$VERCEL_TOKEN"
+        run: pnpm exec vercel deploy --yes --token "$VERCEL_TOKEN"
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
