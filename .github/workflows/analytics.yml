@@ -5,6 +5,7 @@ on:
     branches:
       - development
       - main
+      - "feature/**"
 
   pull_request:
     branches:
@@ -72,6 +73,6 @@ jobs:
       - name: Run analytics validation tests
         run: |
           pnpm exec jest \
-            --config jest.config.cjs \
+            --config tests/jest.config.cjs \
             tests/analytics \
             --passWithNoTests

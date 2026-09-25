@@ -4,6 +4,7 @@ on:
     branches:
       - development
       - main
+      - "feature/**"
   pull_request:
     branches:
       - development
@@ -68,7 +69,7 @@ jobs:
           exit 1
 
       - name: SuperTest Security Tests
-        run: pnpm exec jest --config jest.config.cjs tests/security/api/api-security.jest.test.ts
+        run: pnpm exec jest --config tests/jest.config.cjs tests/security/api/api-security.jest.test.ts
 
       - name: ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.15.0

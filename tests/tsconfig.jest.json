@@ -12,5 +12,9 @@
     "isolatedModules": true,
     "types": ["jest", "node"]
   },
-  "include": ["tests/**/*.ts", "tests/**/*.tsx", "tests/integration/types/**/*.d.ts"]
+  "include": [
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "tests/integration/types/**/*.d.ts"
+  ]
 }
