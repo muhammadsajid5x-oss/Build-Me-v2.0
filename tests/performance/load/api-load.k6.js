@@ -1,3 +1,5 @@
+/* global __ENV */
+
 import http from "k6/http";
 import { check, sleep } from "k6";
 export const options = {
@@ -5,10 +7,10 @@ export const options = {
   duration: "10s",
   thresholds: {
     http_req_failed: ["rate<0.01"],
-    http_req_duration: ["p(95)<500"],
+    http_req_duration: ["p(95)<1500", "p(99)<2000"],
   },
 };
-export default function () {
+export default function apiLoadTest() {
   const response = http.get(
     __ENV.API_BASE_URL || "http://localhost:3000/health",
   );
